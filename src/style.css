@@ -4,7 +4,7 @@
 }
 
 body {
-  height: 100vh;
+  /* height: 100vh; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -13,5 +13,24 @@ body {
 
 #my-search-js {
   display: inline-block;
-  
 }
+
+.card-display {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 1em;
+  row-gap: 1em;
+}
+
+.data-card {
+  display: block;
+  height: auto;
+  width: 200px;
+  padding: 1em;
+  box-shadow: 5px 5px 2px rgb(173, 173, 173);
+}
+
+.data-card h1.card-name {
+  font-size: 150%;
+}
+
