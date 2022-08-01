@@ -10,7 +10,7 @@ submitBtn.textContent = 'Search';
 quick_search.appendChild(submitBtn);
 
 function searchSwapi(text) {
-  // alert(text);
+  clearCardDisplay();
 
   const SWAPIbaseURL = 'https://swapi.dev/api/';
 
@@ -74,6 +74,13 @@ function createDataCard(dataObj) {
   for (const tag of cardAttributes) dataList.appendChild(tag);
 
   return card;
+}
+
+function clearCardDisplay() {
+  if (document.querySelector('.card-display')) {
+    const cardDisplay = document.querySelector('.card-display');
+    cardDisplay.parentElement.removeChild(cardDisplay);
+  }
 }
 
 quick_search.addEventListener('submit', (event) => {

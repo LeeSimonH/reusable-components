@@ -9,10 +9,14 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 1em;
 }
 
 #my-search-js {
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+  margin-bottom: 1em
 }
 
 .card-display {
@@ -23,11 +27,17 @@ body {
 }
 
 .data-card {
+  border: 2px solid transparent;
+  background-color: whitesmoke;
   display: block;
   height: auto;
   width: 200px;
   padding: 1em;
   box-shadow: 5px 5px 2px rgb(173, 173, 173);
+}
+
+.data-card:hover {
+  border: 2px groove grey;
 }
 
 .data-card h1.card-name {
