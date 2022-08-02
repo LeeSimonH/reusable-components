@@ -1,5 +1,5 @@
 import quick_search from './components/quick_search/quick_search';
-import './style.css';
+import './style.scss';
 
 const root = document.getElementById('root');
 
