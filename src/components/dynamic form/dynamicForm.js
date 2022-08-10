@@ -73,16 +73,30 @@ const favColorDropdownLabel = createDomEl(
   'Favorite Color:'
 );
 const favColorDropdown = createDomEl('input', {
+  type: 'select',
   list: 'colors',
   name: 'colorsDropdown',
 });
 const favColorDropdownList = createDomEl('datalist', {
   id: 'colors',
 });
-const colors = ['red', 'blue', 'green', 'yellow', 'orange'];
+const colors = ['red', 'blue', 'green', 'yellow', 'orange', 'other'];
 colors.forEach((color) => {
   const colorOption = createDomEl('option', { value: color });
   favColorDropdownList.appendChild(colorOption);
+});
+
+const otherColorLabel = createDomEl(
+  'label',
+  {
+    for: 'otherColor',
+  },
+  'If "other," please specify:'
+);
+const otherColorInput = createDomEl('input', {
+  type: 'text',
+  name: 'otherColor',
+  id: 'otherColorInput',
 });
 
 const submitBtn = createDomEl(
@@ -111,38 +125,63 @@ appendElements(
 /**
  * Event Listeners
  */
+favColorDropdown.addEventListener('change', (e) => {
+  // console.log(e.target.value);
+  if (e.target.value == 'other') {
+    // if the otherColorInput isn't already on the DOM
+    if (!document.getElementById('otherColorInput')) {
+      // add the input and the label to the dom after the color input
+      favColorDropdown.parentNode.insertBefore(
+        otherColorInput,
+        favColorDropdown.nextSibling
+      );
+      favColorDropdown.parentNode.insertBefore(
+        otherColorLabel,
+        favColorDropdown.nextSibling
+      );
+    }
+  } else if (e.target.value != 'other') {
+    if (document.getElementById('otherColorInput')) {
+      otherColorInput.parentNode.removeChild(otherColorInput);
+      otherColorLabel.parentNode.removeChild(otherColorLabel);
+    }
+  }
+});
 
-// dynamicForm.addEventListener('submit', (e) => {
-//   e.preventDefault();
-//   const allInputs = Array.from(document.querySelectorAll('input'));
+dynamicForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const allInputs = Array.from(document.querySelectorAll('input'));
+  console.log(allInputs);
 
-//   let outputMsg;
+  let outputMsg = '';
 
-//   if (allInputs.some((input) => input.value === '')) {
-//     outputMsg += `Please fill out all required fields.`;
-//   }
+  if (allInputs.some((input) => input.value == '' && input.type != 'submit')) {
+    outputMsg += `Please fill out all required fields.`;
+  }
 
-//   // allInputs.forEach((input) => {
-//   //   if (input.value === '') {
-//   //     outputMsg += `Please fill out information for ${input.name}. \n`;
-//   //   }
-//   // });
+  // allInputs.forEach((input) => {
+  //   if (input.value === '') {
+  //     outputMsg += `Please fill out information for ${input.name}. \n`;
+  //   }
+  // });
 
-//   if (outputMsg === '') {
-//     allInputs.forEach((input) => {
-//       outputMsg += `${input.name}: ${input.value}`;
-//     });
-//   }
+  if (outputMsg === '') {
+    allInputs.forEach((input) => {
+      outputMsg += `${input.name}: ${input.value}`;
+    });
+  }
 
-//   const alertDiv = createDomEl('div', {
-//     class: 'alert',
-//     style: 'z-index: 1',
-//   });
+  alert(outputMsg);
 
-//   const outputMsgEl = createDomEl('span', (content = outputMsg));
-//   alertDiv.appendChild(outputMsgEl);
+  // const alertDiv = createDomEl('div', {
+  //   class: 'alert',
+  //   style: 'z-index: 1',
+  // });
 
-//   document.appendChild(alertDiv);
-// });
+  // const outputMsgEl = createDomEl('span', { content: outputMsg });
+  // alertDiv.appendChild(outputMsgEl);
+
+  // document.appendChild(alertDiv);
+});
 
 export default dynamicForm;
